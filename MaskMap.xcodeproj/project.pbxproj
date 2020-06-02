@@ -13,6 +13,8 @@
 		70A2A4402446FDA1000A2562 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70A2A43E2446FDA1000A2562 /* Main.storyboard */; };
 		70A2A4422446FDA4000A2562 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70A2A4412446FDA4000A2562 /* Assets.xcassets */; };
 		70A2A4452446FDA4000A2562 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70A2A4432446FDA4000A2562 /* LaunchScreen.storyboard */; };
+		70A2A45124470BFC000A2562 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A2A45024470BFC000A2562 /* Mask.swift */; };
+		70A2A45324472A8C000A2562 /* MaskAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A2A45224472A8C000A2562 /* MaskAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		70A2A4412446FDA4000A2562 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70A2A4442446FDA4000A2562 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70A2A4462446FDA4000A2562 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70A2A45024470BFC000A2562 /* Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
+		70A2A45224472A8C000A2562 /* MaskAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				70A2A4382446FDA1000A2562 /* AppDelegate.swift */,
 				70A2A43A2446FDA1000A2562 /* SceneDelegate.swift */,
 				70A2A43C2446FDA1000A2562 /* ViewController.swift */,
+				70A2A45224472A8C000A2562 /* MaskAnnotation.swift */,
+				70A2A45024470BFC000A2562 /* Mask.swift */,
 				70A2A43E2446FDA1000A2562 /* Main.storyboard */,
 				70A2A4412446FDA4000A2562 /* Assets.xcassets */,
 				70A2A4432446FDA4000A2562 /* LaunchScreen.storyboard */,
@@ -139,6 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				70A2A43D2446FDA1000A2562 /* ViewController.swift in Sources */,
+				70A2A45324472A8C000A2562 /* MaskAnnotation.swift in Sources */,
+				70A2A45124470BFC000A2562 /* Mask.swift in Sources */,
 				70A2A4392446FDA1000A2562 /* AppDelegate.swift in Sources */,
 				70A2A43B2446FDA1000A2562 /* SceneDelegate.swift in Sources */,
 			);
@@ -287,6 +295,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7B4C4DSQ93;
 				INFOPLIST_FILE = MaskMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +314,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7B4C4DSQ93;
 				INFOPLIST_FILE = MaskMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
