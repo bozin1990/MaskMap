@@ -77,15 +77,19 @@ class ViewController: UIViewController {
     
     
     @IBAction func callPhone(_ sender: Any) {
-        guard let phoneNumber = selectedAn else { return }
-        print("1231:\(phoneNumber.mask?.phone)" )
-        if let url = URL(string: "tel://\(phoneNumber.mask?.phone)"), UIApplication.shared.canOpenURL(url) {
+        guard let phoneNumber = selectedAn?.mask?.phone,
+        let url = URL(string: "tel://\(phoneNumber)") else { return }
+        let alert = UIAlertController(title: "提醒您",
+                                      message: "即將撥打電話\(phoneNumber)",
+                                      preferredStyle: .alert)
+        let ok = UIAlertAction(title: "確定", style: .default) { (_) in
+            
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        
-//        let url = URL(string: "tel://\(phoneNumber.mask?.phone)")
-//        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-//
+        let cancel = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
