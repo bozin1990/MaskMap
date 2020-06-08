@@ -68,16 +68,29 @@ class ViewController: UIViewController {
         
     }
     @IBAction func navigationLocation(_ sender: Any) {
-        guard let an = selectedAn else { return}
+        guard let annotation = selectedAn else { return }
         let start = mapView.userLocation.coordinate
-        let end = an.coordinate
+        let end = annotation.coordinate
         //        設定起點 終點
         direct(start: start, end: end)
     }
     
+    
+    @IBAction func callPhone(_ sender: Any) {
+        guard let phoneNumber = selectedAn else { return }
+        print("1231:\(phoneNumber.mask?.phone)" )
+        if let url = URL(string: "tel://\(phoneNumber.mask?.phone)"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        
+//        let url = URL(string: "tel://\(phoneNumber.mask?.phone)")
+//        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+//
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         //        背景執行時關閉定位功能
-                locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
     }
 }
 
@@ -94,8 +107,6 @@ extension ViewController: MKMapViewDelegate {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         }
         
-        let infoButton = UIButton(type: .detailDisclosure)
-        annotationView?.rightCalloutAccessoryView = infoButton
         if let count = annotation.mask?.maskAdult, count == 0 {
             annotationView?.pinTintColor = UIColor.red
             annotationView?.animatesDrop = true
@@ -122,6 +133,7 @@ extension ViewController: MKMapViewDelegate {
             maskChildLabel.text = "\(annotation?.mask?.maskChild ?? 0)"
             addressLabel.text = annotation?.mask?.address
             timeLabel.text = timeText
+            print("12345: \(annotation?.mask?.phone)")
         }
         
     }
