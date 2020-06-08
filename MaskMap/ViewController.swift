@@ -31,8 +31,8 @@ class ViewController: UIViewController {
         
         let region = MKCoordinateRegion(center: userLocation!, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(region, animated: true)
-        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "\(MaskAnnotation.self)")
-        
+        mapView.register(MapItemAnnotationView.self, forAnnotationViewWithReuseIdentifier: "\(MaskAnnotation.self)")
+        mapView.register(ClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         guard let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") else {
             return
         }
@@ -45,6 +45,7 @@ class ViewController: UIViewController {
                 
                 let maskAnnotations = features.map {
                     MaskAnnotation(feature: $0)
+                    
                 }
                 
                 DispatchQueue.main.async {
@@ -67,6 +68,7 @@ class ViewController: UIViewController {
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
         
     }
+    
     @IBAction func navigationLocation(_ sender: Any) {
         guard let an = selectedAn else { return}
         let start = mapView.userLocation.coordinate
@@ -77,7 +79,7 @@ class ViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         //        背景執行時關閉定位功能
-                locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
     }
 }
 
@@ -89,19 +91,16 @@ extension ViewController: MKMapViewDelegate {
         guard let annotation = annotation as? MaskAnnotation else {
             return nil
         }
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "\(MaskAnnotation.self)", for: annotation) as? MKPinAnnotationView
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "\(MaskAnnotation.self)", for: annotation) as? MapItemAnnotationView
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView = MapItemAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         }
         
-        let infoButton = UIButton(type: .detailDisclosure)
-        annotationView?.rightCalloutAccessoryView = infoButton
         if let count = annotation.mask?.maskAdult, count == 0 {
-            annotationView?.pinTintColor = UIColor.red
-            annotationView?.animatesDrop = true
+            annotationView?.image = UIImage(named: "empty")
+            
         } else {
-            annotationView?.pinTintColor = UIColor.blue
-            annotationView?.animatesDrop = true
+            annotationView?.image = UIImage(named: "mask")
         }
         
         annotationView?.canShowCallout = true
@@ -123,6 +122,13 @@ extension ViewController: MKMapViewDelegate {
             addressLabel.text = annotation?.mask?.address
             timeLabel.text = timeText
         }
+        
+        guard view is ClusterAnnotationView else { return }
+        let currentSpan = mapView.region.span
+        let zoomSpan = MKCoordinateSpan(latitudeDelta: currentSpan.latitudeDelta / 2.0, longitudeDelta: currentSpan.longitudeDelta / 2.0)
+        let zoomCoordinate = view.annotation?.coordinate ?? mapView.region.center
+        let zoomed = MKCoordinateRegion(center: zoomCoordinate, span: zoomSpan)
+        mapView.setRegion(zoomed, animated: true)
         
     }
     
