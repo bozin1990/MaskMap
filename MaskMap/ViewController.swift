@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     
     @IBOutlet weak var timeLabel: UILabel!
@@ -24,14 +24,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //        詢問使用者是否可取用其位置的隱私
-        locationManager.requestWhenInUseAuthorization()
-        mapView.setUserTrackingMode(.none, animated: true)
-        mapView.delegate = self
-        let userLocation = locationManager.location?.coordinate
+        locationManager.delegate = self
         
-        let region = MKCoordinateRegion(center: userLocation!, latitudinalMeters: 1000, longitudinalMeters: 1000)
-        mapView.setRegion(region, animated: true)
-        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "\(MaskAnnotation.self)")
+        
+        mapView.delegate = self
         
         guard let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") else {
             return
@@ -75,44 +71,85 @@ class ViewController: UIViewController {
         direct(start: start, end: end)
     }
     
-    
     @IBAction func callPhone(_ sender: Any) {
-        guard let phoneNumber = selectedAn else { return }
-        print("1231:\(phoneNumber.mask?.phone)" )
-        if let url = URL(string: "tel://\(phoneNumber.mask?.phone)"), UIApplication.shared.canOpenURL(url) {
+        guard let phoneNumber = selectedAn?.mask?.phone, let url = URL(string: "tel://\(phoneNumber)") else { return }
+        let alert = UIAlertController(title: "提醒您", message: "即將撥打電話\(phoneNumber)", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "確定", style: .default) { (_) in
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+        let cancel = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
         
-//        let url = URL(string: "tel://\(phoneNumber.mask?.phone)")
-//        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-//
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         //        背景執行時關閉定位功能
         locationManager.stopUpdatingLocation()
     }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .denied, .restricted:
+            let alertController = UIAlertController(title: "定位失敗", message: "請先開啟定位權限", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (_) in
+                self.dismiss(animated: true, completion: nil)
+            }
+            let okAction = UIAlertAction(title: "設定", style: .default) { (_) in
+                let url = URL(string: UIApplication.openSettingsURLString)
+                if let url = url, UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+                
+            }
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+            
+            
+            break
+        case .authorizedWhenInUse, .authorizedAlways:
+            locationManager.startUpdatingLocation()
+            let userLocation = locationManager.location?.coordinate
+            let region = MKCoordinateRegion(center: userLocation!, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            mapView.setRegion(region, animated: true)
+            mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "\(MaskAnnotation.self)")
+            
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            break
+        default:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
 }
 
 extension ViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "annotation"
+        
         
         guard let annotation = annotation as? MaskAnnotation else {
             return nil
         }
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "\(MaskAnnotation.self)", for: annotation) as? MKPinAnnotationView
-        if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-        }
+        
+        let identifier = "MaskAnnotation"
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
         
         if let count = annotation.mask?.maskAdult, count == 0 {
-            annotationView?.pinTintColor = UIColor.red
-            annotationView?.animatesDrop = true
+            annotationView?.markerTintColor = .systemGray
         } else {
-            annotationView?.pinTintColor = UIColor.blue
-            annotationView?.animatesDrop = true
+            annotationView?.markerTintColor = .systemRed
         }
         
         annotationView?.canShowCallout = true

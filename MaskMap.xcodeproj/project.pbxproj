@@ -46,6 +46,7 @@
 			children = (
 				70A2A4372446FDA1000A2562 /* MaskMap */,
 				70A2A4362446FDA1000A2562 /* Products */,
+				70A2A4432446FDA4000A2562 /* LaunchScreen.storyboard */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,7 +68,6 @@
 				70A2A45024470BFC000A2562 /* Mask.swift */,
 				70A2A43E2446FDA1000A2562 /* Main.storyboard */,
 				70A2A4412446FDA4000A2562 /* Assets.xcassets */,
-				70A2A4432446FDA4000A2562 /* LaunchScreen.storyboard */,
 				70A2A4462446FDA4000A2562 /* Info.plist */,
 			);
 			path = MaskMap;
