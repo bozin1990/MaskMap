@@ -25,8 +25,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         //        詢問使用者是否可取用其位置的隱私
         locationManager.delegate = self
-        
-        
         mapView.delegate = self
         
         guard let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") else {
@@ -45,12 +43,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 
                 DispatchQueue.main.async {
                     self.mapView.addAnnotations(maskAnnotations)
-                    
                 }
-                
             }
-            
-            
         }.resume()
     }
     
@@ -60,28 +54,44 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func showUserLocation(_ sender: Any) {
-        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+        } else {
+            mapView.setCenter(.init(latitude: 25.033408, longitude: 121.564099), animated: true)
+        }
+        
         
     }
     @IBAction func navigationLocation(_ sender: Any) {
-        guard let annotation = selectedAn else { return }
-        let start = mapView.userLocation.coordinate
-        let end = annotation.coordinate
-        //        設定起點 終點
-        direct(start: start, end: end)
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            guard let annotation = selectedAn else { return }
+            let start = mapView.userLocation.coordinate
+            let end = annotation.coordinate
+            //        設定起點 終點
+            direct(start: start, end: end)
+        } else {
+            return
+        }
+        
     }
     
     @IBAction func callPhone(_ sender: Any) {
-        guard let phoneNumber = selectedAn?.mask?.phone, let url = URL(string: "tel://\(phoneNumber)") else { return }
-        let alert = UIAlertController(title: "提醒您", message: "即將撥打電話\(phoneNumber)", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "確定", style: .default) { (_) in
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-        let cancel = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        alert.addAction(ok)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
         
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            guard let phoneNumber = selectedAn?.mask?.phone, let url = URL(string: "tel://\(phoneNumber)") else { return }
+            let alert = UIAlertController(title: "提醒您", message: "即將撥打電話\(phoneNumber)", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "確定", style: .default) { (_) in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            let cancel = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            alert.addAction(ok)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            return
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -90,6 +100,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
         switch status {
         case .denied, .restricted:
             let alertController = UIAlertController(title: "定位失敗", message: "請先開啟定位權限", preferredStyle: .alert)
@@ -107,10 +118,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)
             
-            
             break
         case .authorizedWhenInUse, .authorizedAlways:
-            locationManager.startUpdatingLocation()
             let userLocation = locationManager.location?.coordinate
             let region = MKCoordinateRegion(center: userLocation!, latitudinalMeters: 1000, longitudinalMeters: 1000)
             mapView.setRegion(region, animated: true)
@@ -123,20 +132,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             break
         }
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
 }
 
 extension ViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         
         guard let annotation = annotation as? MaskAnnotation else {
             return nil
@@ -147,7 +147,7 @@ extension ViewController: MKMapViewDelegate {
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
         
         if let count = annotation.mask?.maskAdult, count == 0 {
-            annotationView?.markerTintColor = .systemGray
+            annotationView?.markerTintColor = .systemGreen
         } else {
             annotationView?.markerTintColor = .systemRed
         }
@@ -170,7 +170,6 @@ extension ViewController: MKMapViewDelegate {
             maskChildLabel.text = "\(annotation?.mask?.maskChild ?? 0)"
             addressLabel.text = annotation?.mask?.address
             timeLabel.text = timeText
-            print("12345: \(annotation?.mask?.phone)")
         }
         
     }

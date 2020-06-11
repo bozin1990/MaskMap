@@ -18,7 +18,7 @@ class MaskAnnotation: NSObject, MKAnnotation  {
         coordinate = feature.geometry[0].coordinate
         guard let data = feature.properties else { return }
         let decoder = JSONDecoder()
-        //        底線
+        //        底線欄位名稱轉換
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
             let timeString = try decoder.singleValueContainer().decode(String.self)

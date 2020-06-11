@@ -15,6 +15,16 @@
 		70A2A4452446FDA4000A2562 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70A2A4432446FDA4000A2562 /* LaunchScreen.storyboard */; };
 		70A2A45124470BFC000A2562 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A2A45024470BFC000A2562 /* Mask.swift */; };
 		70A2A45324472A8C000A2562 /* MaskAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A2A45224472A8C000A2562 /* MaskAnnotation.swift */; };
+		70E908352490C40C00D33B5B /* list@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E9082F2490C40C00D33B5B /* list@3x.png */; };
+		70E908362490C40C00D33B5B /* map@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E908302490C40C00D33B5B /* map@3x.png */; };
+		70E908372490C40C00D33B5B /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E908312490C40C00D33B5B /* list.png */; };
+		70E908382490C40C00D33B5B /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E908322490C40C00D33B5B /* map.png */; };
+		70E908392490C40C00D33B5B /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E908332490C40C00D33B5B /* map@2x.png */; };
+		70E9083A2490C40C00D33B5B /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E908342490C40C00D33B5B /* list@2x.png */; };
+		70E9083C2490C4E500D33B5B /* PharmacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E9083B2490C4E500D33B5B /* PharmacyTableViewCell.swift */; };
+		70E9083E2490C4FA00D33B5B /* PharmacyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E9083D2490C4FA00D33B5B /* PharmacyTableViewController.swift */; };
+		70E908422490F14800D33B5B /* MaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E908412490F14800D33B5B /* MaskData.swift */; };
+		70E908462490FDBC00D33B5B /* mask1.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E908452490FDBC00D33B5B /* mask1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +38,16 @@
 		70A2A4462446FDA4000A2562 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70A2A45024470BFC000A2562 /* Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
 		70A2A45224472A8C000A2562 /* MaskAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskAnnotation.swift; sourceTree = "<group>"; };
+		70E9082F2490C40C00D33B5B /* list@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@3x.png"; sourceTree = "<group>"; };
+		70E908302490C40C00D33B5B /* map@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@3x.png"; sourceTree = "<group>"; };
+		70E908312490C40C00D33B5B /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
+		70E908322490C40C00D33B5B /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		70E908332490C40C00D33B5B /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
+		70E908342490C40C00D33B5B /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
+		70E9083B2490C4E500D33B5B /* PharmacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyTableViewCell.swift; sourceTree = "<group>"; };
+		70E9083D2490C4FA00D33B5B /* PharmacyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyTableViewController.swift; sourceTree = "<group>"; };
+		70E908412490F14800D33B5B /* MaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskData.swift; sourceTree = "<group>"; };
+		70E908452490FDBC00D33B5B /* mask1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +64,7 @@
 		70A2A42C2446FDA1000A2562 = {
 			isa = PBXGroup;
 			children = (
+				70E9082E2490C3D100D33B5B /* images */,
 				70A2A4372446FDA1000A2562 /* MaskMap */,
 				70A2A4362446FDA1000A2562 /* Products */,
 				70A2A4432446FDA4000A2562 /* LaunchScreen.storyboard */,
@@ -67,10 +88,27 @@
 				70A2A45224472A8C000A2562 /* MaskAnnotation.swift */,
 				70A2A45024470BFC000A2562 /* Mask.swift */,
 				70A2A43E2446FDA1000A2562 /* Main.storyboard */,
+				70E9083B2490C4E500D33B5B /* PharmacyTableViewCell.swift */,
+				70E9083D2490C4FA00D33B5B /* PharmacyTableViewController.swift */,
+				70E908412490F14800D33B5B /* MaskData.swift */,
 				70A2A4412446FDA4000A2562 /* Assets.xcassets */,
 				70A2A4462446FDA4000A2562 /* Info.plist */,
 			);
 			path = MaskMap;
+			sourceTree = "<group>";
+		};
+		70E9082E2490C3D100D33B5B /* images */ = {
+			isa = PBXGroup;
+			children = (
+				70E908452490FDBC00D33B5B /* mask1.png */,
+				70E908312490C40C00D33B5B /* list.png */,
+				70E908342490C40C00D33B5B /* list@2x.png */,
+				70E9082F2490C40C00D33B5B /* list@3x.png */,
+				70E908322490C40C00D33B5B /* map.png */,
+				70E908332490C40C00D33B5B /* map@2x.png */,
+				70E908302490C40C00D33B5B /* map@3x.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,8 +170,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				70A2A4452446FDA4000A2562 /* LaunchScreen.storyboard in Resources */,
+				70E908462490FDBC00D33B5B /* mask1.png in Resources */,
+				70E908362490C40C00D33B5B /* map@3x.png in Resources */,
+				70E908352490C40C00D33B5B /* list@3x.png in Resources */,
 				70A2A4422446FDA4000A2562 /* Assets.xcassets in Resources */,
+				70E9083A2490C40C00D33B5B /* list@2x.png in Resources */,
+				70E908382490C40C00D33B5B /* map.png in Resources */,
+				70E908392490C40C00D33B5B /* map@2x.png in Resources */,
 				70A2A4402446FDA1000A2562 /* Main.storyboard in Resources */,
+				70E908372490C40C00D33B5B /* list.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +192,10 @@
 				70A2A43D2446FDA1000A2562 /* ViewController.swift in Sources */,
 				70A2A45324472A8C000A2562 /* MaskAnnotation.swift in Sources */,
 				70A2A45124470BFC000A2562 /* Mask.swift in Sources */,
+				70E908422490F14800D33B5B /* MaskData.swift in Sources */,
 				70A2A4392446FDA1000A2562 /* AppDelegate.swift in Sources */,
+				70E9083C2490C4E500D33B5B /* PharmacyTableViewCell.swift in Sources */,
+				70E9083E2490C4FA00D33B5B /* PharmacyTableViewController.swift in Sources */,
 				70A2A43B2446FDA1000A2562 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

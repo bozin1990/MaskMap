@@ -9,9 +9,9 @@
 import Foundation
 
 struct Mask: Decodable {
-    let name: String
+    let name: String?
     let phone: String
-    let address: String
+    let address: String?
     let maskAdult: Int
     let maskChild: Int
     let updated: Date
