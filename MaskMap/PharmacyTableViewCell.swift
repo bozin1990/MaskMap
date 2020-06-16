@@ -10,6 +10,7 @@ import UIKit
 
 class PharmacyTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var pharmacyAddress: UILabel!
     @IBOutlet weak var pharmacyName: UILabel!
     override func awakeFromNib() {

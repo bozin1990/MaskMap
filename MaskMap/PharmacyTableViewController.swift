@@ -22,6 +22,7 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
         //        titleView的元件換成searchBar
         navigationItem.titleView = searchBar
         tableView.tableFooterView = UIView(frame: .zero)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,9 +79,11 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
         if search {
             let maskData = searchMaskDatas[indexPath.row]
             cell.update(maskData: maskData)
+            
         } else {
             let maskData = maskDatas[indexPath.row]
             cell.update(maskData: maskData)
+            
         }
         
         return cell

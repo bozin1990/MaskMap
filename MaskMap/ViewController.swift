@@ -132,6 +132,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             break
         }
     }
+
 }
 
 extension ViewController: MKMapViewDelegate {
@@ -142,6 +143,12 @@ extension ViewController: MKMapViewDelegate {
             return nil
         }
         
+        //            計算直線距離
+        let loc1 = CLLocation(latitude: (annotation.coordinate.latitude), longitude: (annotation.coordinate.longitude))
+        
+        let distance = loc1.distance(from: mapView.userLocation.location!)
+        print(String(format: "%.1f", distance) + "m")
+        
         let identifier = "MaskAnnotation"
         
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
@@ -151,6 +158,8 @@ extension ViewController: MKMapViewDelegate {
         } else {
             annotationView?.markerTintColor = .systemRed
         }
+        
+        
         
         annotationView?.canShowCallout = true
         
@@ -163,13 +172,39 @@ extension ViewController: MKMapViewDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         let timeText = formatter.string(from: annotation?.mask?.updated ?? Date())
-        if (annotation != nil) {
+        
+        if let annotation = annotation {
             infoView.isHidden = false
-            nameLabel.text = annotation?.mask?.name
-            maskAdultLabel.text = "\(annotation?.mask?.maskAdult ?? 0)"
-            maskChildLabel.text = "\(annotation?.mask?.maskChild ?? 0)"
-            addressLabel.text = annotation?.mask?.address
+            nameLabel.text = annotation.mask?.name
+            maskAdultLabel.text = "\(annotation.mask?.maskAdult ?? 0)"
+            maskChildLabel.text = "\(annotation.mask?.maskChild ?? 0)"
+            addressLabel.text = annotation.mask?.address
             timeLabel.text = timeText
+            
+            
+            
+            //            計算路徑距離
+            // Okay, we've geocoded two addresses as start_placemark and end_placemark.
+            //            let start = MKMapItem(placemark: MKPlacemark(coordinate: mapView.userLocation.coordinate))
+            //            let end = MKMapItem(placemark: MKPlacemark(coordinate: annotation.coordinate))
+            
+            // Now we've got start and end MKMapItems for MapKit, based on the placemarks. Build a request for
+            // a route by walk.
+            //            let request: MKDirections.Request = MKDirections.Request()
+            //            request.source = start
+            //            request.destination = end
+            //            request.transportType = MKDirectionsTransportType.walking
+            
+            // Execute the request on an MKDirections object
+            //            let directions = MKDirections(request: request)
+            //            directions.calculate(completionHandler: { (response: MKDirections.Response?, error: Error?) in
+            //                // Now we should have a route.
+            //                if let routes = response?.routes {
+            //                    let route = routes[0]
+            //                    print(route.distance) // 2,307 metres.
+            //                }
+            //            })
+            
         }
         
     }
@@ -198,3 +233,12 @@ extension ViewController: MKMapViewDelegate {
     }
     
 }
+
+//四捨五入 取整數第x位
+//extension Double {
+//    func rounding(toInteger integer: Int) -> Double {
+//        let integer = integer - 1
+//        let numberOfDigits = pow(10.0, Double(integer))
+//        return (self / numberOfDigits).rounded(.toNearestOrAwayFromZero) * numberOfDigits
+//    }
+//}

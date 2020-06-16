@@ -245,36 +245,46 @@
                                                 <constraint firstAttribute="width" constant="80" id="aKC-0N-94R"/>
                                             </constraints>
                                         </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jHS-Di-j9f">
-                                            <rect key="frame" x="108" y="25" width="101.66666666666669" height="65"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jHS-Di-j9f">
+                                            <rect key="frame" x="108" y="25" width="69.333333333333314" height="65"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="藥局名稱" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-OH-OTm">
-                                                    <rect key="frame" x="0.0" y="0.0" width="101.66666666666667" height="42.666666666666664"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="藥局名稱" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-OH-OTm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="69.333333333333329" height="20.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="藥局地址" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VER-GJ-m0H">
-                                                    <rect key="frame" x="0.0" y="50.666666666666671" width="101.66666666666667" height="14.333333333333329"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="藥局地址藥局地址藥局地址藥局地址藥局地址藥局地址" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VER-GJ-m0H">
+                                                    <rect key="frame" x="0.0" y="28.333333333333339" width="69.333333333333329" height="36.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="65000m" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yw-20-1uQ">
+                                            <rect key="frame" x="315.66666666666669" y="36" width="78.333333333333314" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="jHS-Di-j9f" secondAttribute="trailing" priority="999" constant="204.33000000000001" id="1Xb-yy-xi4"/>
                                         <constraint firstItem="DAI-1M-AaP" firstAttribute="top" secondItem="tBa-lw-jmB" secondAttribute="top" constant="20" id="3lu-wt-noJ"/>
+                                        <constraint firstItem="5Yw-20-1uQ" firstAttribute="top" secondItem="tBa-lw-jmB" secondAttribute="top" constant="36" id="3oI-zn-6X0"/>
+                                        <constraint firstItem="5Yw-20-1uQ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="jHS-Di-j9f" secondAttribute="trailing" priority="999" constant="138.33000000000001" id="5Ol-cP-SPK"/>
                                         <constraint firstItem="jHS-Di-j9f" firstAttribute="leading" secondItem="DAI-1M-AaP" secondAttribute="trailing" constant="8" id="FLt-Ps-2gF"/>
                                         <constraint firstAttribute="bottom" secondItem="jHS-Di-j9f" secondAttribute="bottom" constant="25" id="MO3-Pm-MDv"/>
                                         <constraint firstItem="jHS-Di-j9f" firstAttribute="top" secondItem="tBa-lw-jmB" secondAttribute="top" constant="25" id="OJF-aQ-dPd"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jHS-Di-j9f" secondAttribute="trailing" constant="20" id="lVD-QY-lkb"/>
+                                        <constraint firstAttribute="bottom" secondItem="5Yw-20-1uQ" secondAttribute="bottom" constant="36" id="ZPE-aH-L12"/>
+                                        <constraint firstAttribute="trailing" secondItem="5Yw-20-1uQ" secondAttribute="trailing" constant="20" id="kF2-ld-71V"/>
                                         <constraint firstItem="DAI-1M-AaP" firstAttribute="leading" secondItem="tBa-lw-jmB" secondAttribute="leading" constant="20" id="leh-r9-L3h"/>
                                         <constraint firstAttribute="bottom" secondItem="DAI-1M-AaP" secondAttribute="bottom" constant="20" id="nZ1-Lp-ner"/>
+                                        <constraint firstItem="5Yw-20-1uQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jHS-Di-j9f" secondAttribute="trailing" constant="8" id="r0L-i4-sXm"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="distanceLabel" destination="5Yw-20-1uQ" id="X0i-2O-90X"/>
                                     <outlet property="pharmacyAddress" destination="VER-GJ-m0H" id="b1V-Kg-wGi"/>
                                     <outlet property="pharmacyName" destination="2Te-OH-OTm" id="MXA-x2-L3n"/>
                                 </connections>

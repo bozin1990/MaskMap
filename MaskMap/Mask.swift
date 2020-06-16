@@ -25,4 +25,3 @@ struct Mask: Decodable {
     let servicePeriods: String
     
 }
-
