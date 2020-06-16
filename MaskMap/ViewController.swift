@@ -9,10 +9,12 @@
 import UIKit
 import MapKit
 import CoreLocation
-
+protocol ViewControllerDelegate {
+    func didFinishLoadMaskData(maskData:[MaskData.MaskList]?)
+}
 class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
-    
+    var delegate:ViewControllerDelegate?
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var maskChildLabel: UILabel!
     @IBOutlet weak var maskAdultLabel: UILabel!
@@ -26,7 +28,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //        詢問使用者是否可取用其位置的隱私
         locationManager.delegate = self
         mapView.delegate = self
-        
+        self.delegate = (self.tabBarController?.viewControllers?[1] as? UINavigationController)?.viewControllers[0] as? ViewControllerDelegate
         guard let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") else {
             return
         }
@@ -35,6 +37,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             guard let data = data else { return }
             
             let decoder = MKGeoJSONDecoder()
+            let secDecoder = JSONDecoder()
+            secDecoder.keyDecodingStrategy = .convertFromSnakeCase
+            secDecoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+                let timeString = try decoder.singleValueContainer().decode(String.self)
+                return DateFormatter.customFormatter.date(from: timeString) ?? Date()
+            })
             if let features = try? decoder.decode(data) as? [MKGeoJSONFeature] {
                 
                 let maskAnnotations = features.map {
@@ -44,6 +52,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 DispatchQueue.main.async {
                     self.mapView.addAnnotations(maskAnnotations)
                 }
+            }
+            
+            if let maskData = try? secDecoder.decode(MaskData.self, from: data) {
+                self.delegate?.didFinishLoadMaskData(maskData:maskData.features)
             }
         }.resume()
     }
