@@ -10,6 +10,7 @@ import UIKit
 
 class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
     
+    var distances: Distance?
     var maskDatas = [MaskData.MaskList]()
     var searchMaskDatas = [MaskData.MaskList]()
     var search = false
@@ -64,6 +65,10 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if search {
@@ -92,6 +97,15 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
 }
 
 extension PharmacyTableViewController:ViewControllerDelegate {
+    func getDistance(distanceData: Distance?) {
+        if let distances = distanceData {
+            self.distances = distances
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     func didFinishLoadMaskData(maskData: [MaskData.MaskList]?) {
         if let passData = maskData {
             self.maskDatas = passData

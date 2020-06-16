@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 protocol ViewControllerDelegate {
     func didFinishLoadMaskData(maskData:[MaskData.MaskList]?)
+    func getDistance(distanceData: Distance?)
 }
 class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
@@ -23,6 +24,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     var selectedAn: MaskAnnotation?
+    var distances: Distance?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //        詢問使用者是否可取用其位置的隱私
@@ -159,7 +162,9 @@ extension ViewController: MKMapViewDelegate {
         let loc1 = CLLocation(latitude: (annotation.coordinate.latitude), longitude: (annotation.coordinate.longitude))
         
         let distance = loc1.distance(from: mapView.userLocation.location!)
-        print(String(format: "%.1f", distance) + "m")
+        distances?.distance = distance
+        self.delegate?.getDistance(distanceData: distances)
+        print("123\(distances?.distance)")
         
         let identifier = "MaskAnnotation"
         
