@@ -12,6 +12,8 @@ class PharmacyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var pharmacyAddress: UILabel!
     @IBOutlet weak var pharmacyName: UILabel!
+    var maskData: MaskData.MaskList?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

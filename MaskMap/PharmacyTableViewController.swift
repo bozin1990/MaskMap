@@ -27,23 +27,23 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        if let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") {
-//            URLSession.shared.dataTask(with: url) { (data, response, error) in
-//                let decoder = JSONDecoder()
-//                decoder.keyDecodingStrategy = .convertFromSnakeCase
-//                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
-//                    let timeString = try decoder.singleValueContainer().decode(String.self)
-//                    return DateFormatter.customFormatter.date(from: timeString) ?? Date()
-//                })
-//
-//                if let data = data, let maskData = try? decoder.decode(MaskData.self, from: data) {
-//                    self.maskDatas = maskData.features
-//                    DispatchQueue.main.async {
-//                        self.tableView.reloadData()
-//                    }
-//                }
-//            }.resume()
-//        }
+        //        if let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") {
+        //            URLSession.shared.dataTask(with: url) { (data, response, error) in
+        //                let decoder = JSONDecoder()
+        //                decoder.keyDecodingStrategy = .convertFromSnakeCase
+        //                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+        //                    let timeString = try decoder.singleValueContainer().decode(String.self)
+        //                    return DateFormatter.customFormatter.date(from: timeString) ?? Date()
+        //                })
+        //
+        //                if let data = data, let maskData = try? decoder.decode(MaskData.self, from: data) {
+        //                    self.maskDatas = maskData.features
+        //                    DispatchQueue.main.async {
+        //                        self.tableView.reloadData()
+        //                    }
+        //                }
+        //            }.resume()
+        //        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -66,6 +66,16 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PharmacyDetailViewController") as! PharmacyDetailViewController
+        if search {
+            let maskData = searchMaskDatas[indexPath.row]
+            controller.maskData = maskData
+            print("1234 \(maskData)")
+        } else {
+            let maskData = maskDatas[indexPath.row]
+            controller.maskData = maskData
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
         
     }
     
@@ -96,7 +106,7 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
     
 }
 
-extension PharmacyTableViewController:ViewControllerDelegate {
+extension PharmacyTableViewController:MapViewControllerDelegate {
     func getDistance(distanceData: Distance?) {
         if let distances = distanceData {
             self.distances = distances

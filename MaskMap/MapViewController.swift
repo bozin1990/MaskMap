@@ -9,13 +9,13 @@
 import UIKit
 import MapKit
 import CoreLocation
-protocol ViewControllerDelegate {
+protocol MapViewControllerDelegate {
     func didFinishLoadMaskData(maskData:[MaskData.MaskList]?)
     func getDistance(distanceData: Distance?)
 }
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
-    var delegate:ViewControllerDelegate?
+    var delegate:MapViewControllerDelegate?
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var maskChildLabel: UILabel!
     @IBOutlet weak var maskAdultLabel: UILabel!
@@ -31,7 +31,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //        詢問使用者是否可取用其位置的隱私
         locationManager.delegate = self
         mapView.delegate = self
-        self.delegate = (self.tabBarController?.viewControllers?[1] as? UINavigationController)?.viewControllers[0] as? ViewControllerDelegate
+        self.delegate = (self.tabBarController?.viewControllers?[1] as? UINavigationController)?.viewControllers[0] as? MapViewControllerDelegate
         guard let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") else {
             return
         }
@@ -147,10 +147,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             break
         }
     }
-
+    
 }
 
-extension ViewController: MKMapViewDelegate {
+extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -159,12 +159,12 @@ extension ViewController: MKMapViewDelegate {
         }
         
         //            計算直線距離
-        let loc1 = CLLocation(latitude: (annotation.coordinate.latitude), longitude: (annotation.coordinate.longitude))
+        //        let loc1 = CLLocation(latitude: (annotation.coordinate.latitude), longitude: (annotation.coordinate.longitude))
+        //
+        //        let distance = loc1.distance(from: mapView.userLocation.location!)
+        //        distances?.distance = distance
+        //
         
-        let distance = loc1.distance(from: mapView.userLocation.location!)
-        distances?.distance = distance
-        self.delegate?.getDistance(distanceData: distances)
-        print("123\(distances?.distance)")
         
         let identifier = "MaskAnnotation"
         
