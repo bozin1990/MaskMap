@@ -46,20 +46,29 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 let timeString = try decoder.singleValueContainer().decode(String.self)
                 return DateFormatter.customFormatter.date(from: timeString) ?? Date()
             })
-            if let features = try? decoder.decode(data) as? [MKGeoJSONFeature] {
+            // features:MKGeoJSONDecoder解析,maskData:JSONDecoder解析
+            if let features = try? decoder.decode(data) as? [MKGeoJSONFeature],
+                var maskData = try? secDecoder.decode(MaskData.self, from: data){
                 
                 let maskAnnotations = features.map {
                     MaskAnnotation(feature: $0)
+                    
                 }
-                
-                DispatchQueue.main.async {
-                    self.mapView.addAnnotations(maskAnnotations)
+                //背景執行緒
+                DispatchQueue.global().async {
+                    maskData.features.sort { (an1, an2) -> Bool in
+                        let distance1 = self.getDistanceFrom(coordinate: an1.geometry.coordinates)
+                        let distance2 = self.getDistanceFrom(coordinate: an2.geometry.coordinates)
+                        return distance1 < distance2
+                    }
+                    //主執行緒
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotations(maskAnnotations)
+                            self.delegate?.didFinishLoadMaskData(maskData:maskData.features)
+                    }
                 }
             }
             
-            if let maskData = try? secDecoder.decode(MaskData.self, from: data) {
-                self.delegate?.didFinishLoadMaskData(maskData:maskData.features)
-            }
         }.resume()
     }
     
@@ -249,7 +258,18 @@ extension MapViewController: MKMapViewDelegate {
         MKMapItem.openMaps(with: mapItems, launchOptions: options)
     }
     
+    func getDistanceFrom(coordinate:[Double]) -> Double {
+        //操你媽垃圾API順序要反過來用，1放前面
+        var returnDistance:Double = 0.0
+        let targetLoaction = CLLocation(latitude: coordinate[1], longitude: coordinate[0])
+        let distance = locationManager.location?.distance(from: targetLoaction)
+        if let returnValue:Double = distance {
+            returnDistance = returnValue
+        }
+        return returnDistance
+    }
 }
+
 
 //四捨五入 取整數第x位
 //extension Double {

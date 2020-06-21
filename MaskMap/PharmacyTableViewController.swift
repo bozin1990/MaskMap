@@ -27,23 +27,7 @@ class PharmacyTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //        if let url = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json") {
-        //            URLSession.shared.dataTask(with: url) { (data, response, error) in
-        //                let decoder = JSONDecoder()
-        //                decoder.keyDecodingStrategy = .convertFromSnakeCase
-        //                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
-        //                    let timeString = try decoder.singleValueContainer().decode(String.self)
-        //                    return DateFormatter.customFormatter.date(from: timeString) ?? Date()
-        //                })
-        //
-        //                if let data = data, let maskData = try? decoder.decode(MaskData.self, from: data) {
-        //                    self.maskDatas = maskData.features
-        //                    DispatchQueue.main.async {
-        //                        self.tableView.reloadData()
-        //                    }
-        //                }
-        //            }.resume()
-        //        }
+       
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

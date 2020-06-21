@@ -23,5 +23,5 @@ struct Mask: Decodable {
     let town: String
     let cunli: String
     let servicePeriods: String
-    
+    let distance:String?
 }

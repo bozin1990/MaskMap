@@ -9,7 +9,7 @@
 import Foundation
 
 struct MaskData: Decodable {
-    let features: [MaskList]
+    var features: [MaskList]
     
     struct MaskList: Decodable {
         let properties: Properties
